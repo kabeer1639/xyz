@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Entities;
+
+namespace PresentationLayer
+{
+    class Program
+    {
+        int index;
+        static void Main(string[] args)
+        {
+            Training training = new Training();
+            Console.WriteLine(DateTime.Now.ToString());
+            Console.Write("Enter Location: ");
+            training.LOCATION = Console.ReadLine();
+            Console.Write("Enter Skill(DotNet, Java, Testing): ");
+            string skillInput = Console.ReadLine();
+            if (skillInput.Equals("DotNet"))
+            {
+                training.SKILL = Training.Skills.DotNet;
+            }
+            else if (skillInput.Equals("Java"))
+            {
+                training.SKILL = Training.Skills.Java;
+            }
+            else if (skillInput.Equals("Java"))
+            {
+                training.SKILL = Training.Skills.Testing;
+            }
+            Console.Write("Enter Days: ");
+            training.DAYS = Convert.ToInt16(Console.ReadLine());
+            Console.Write("Enter Starting Date in (mm/dd/yyyy): ");
+            training.START_DATE = Convert.ToDateTime(Console.ReadLine());
+            Console.Write("Enter Ending Date in (mm/dd/yyyy): ");
+            training.END_DATE = Convert.ToDateTime(Console.ReadLine());
+
+           
+                Console.WriteLine("Location: " + training.LOCATION);
+                Console.WriteLine("Skill: " + training.SKILL);
+                Console.WriteLine("Days: " + training.DAYS);
+                Console.WriteLine("Start Date: " + training.START_DATE);
+                Console.WriteLine("End Date: " + training.END_DATE);
+            }
+        }
+    }
