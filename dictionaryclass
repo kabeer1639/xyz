@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dictionary;
+
+namespace Dictionary
+{
+    
+   public class Student
+    {
+
+        static void Main(string[] args)
+        {
+
+            List<Program> students = new List<Program>()
+           {
+               new Program { studentID=1, studentName="S1", gender=Gender.Female, Standard=11},
+                 new Program { studentID=2, studentName="S1", gender=Gender.Female, Standard=11},
+                   new Program { studentID=3, studentName="S1", gender=Gender.Female, Standard=11},
+                     new Program { studentID=4, studentName="S1", gender=Gender.Female, Standard=11}
+
+        };
+            Dictionary<Gender, double> percentages = new Dictionary<Gender, double>();
+            double countmale = 0.0, countfemale = 0.0;
+            double permale = 0.0, perfemale = 0.0;
+
+            foreach (Student s in students)
+            {
+                if (s.gender == Gender.Male)
+                    countmale++;
+                else
+                    countfemale++;
+            }
+            permale = countmale / students.Count * 100;
+            perfemale = countfemale / students.Count * 100;
+            percentages.Add(Gender.Male, permale);
+            percentages.Add(Gender.Female, perfemale);
+
+            foreach (KeyValuePair<Gender, double> kv in percentages)
+            {
+                Console.WriteLine("Gender - {0} Percentage -{1}", kv.Key, kv.Value);
+            }
+            Console.ReadLine();
+        }
+    }
+}
