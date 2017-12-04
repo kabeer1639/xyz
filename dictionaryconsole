@@ -1,0 +1,106 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dictionary;
+
+namespace ConsoleApplicationDict
+{
+
+　
+    class Example2Class
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<int, Student> myDictionary = new Dictionary<int, Student>();
+            double maleCount = 0, femaleCount = 0;
+            for (int index = 0; index < 3; index++)
+            {
+                Student studentTemp = new Example2.Student();
+                Console.Write("Enter Student ID: ");
+                studentTemp.StudentID = Console.ReadLine();
+                Console.Write("Enter Student Name: ");
+                studentTemp.STUDENT_NAME = Console.ReadLine();
+                Console.Write("Enter Standard of Student: ");
+                studentTemp.STANDARD = Convert.ToInt16(Console.ReadLine());
+                Console.Write("Enter Gender of Student (M/F): ");
+                char gender;
+                gender = Convert.ToChar(Console.ReadLine());
+                if (gender == 'M')
+                {
+                    studentTemp.GENDER = Student.Gender.Male;
+                }
+                else
+                {
+                    studentTemp.GENDER = Student.Gender.Female;
+                }
+                myDictionary.Add(index, studentTemp);
+                studentTemp = null;
+            }
+            for (int index = 0; index < 3; index++)
+            {
+                Console.WriteLine("Student ID: " + myDictionary[index].STUDENT_ID);
+                Console.WriteLine("Student NAME: " + myDictionary[index].STUDENT_NAME);
+                Console.WriteLine("Student Standard: " + myDictionary[index].STANDARD);
+                Console.WriteLine("Student GENDER: " + myDictionary[index].GENDER);
+            }
+            for (int index = 0; index < 3; index++)
+            {
+                if (myDictionary[index].GENDER == Student.Gender.Male)
+                {
+                    maleCount++;
+                }
+                else
+                {
+                    femaleCount++;
+                }
+            }
+            double percentageMale = 100 * (maleCount / (maleCount + femaleCount));
+            double percentageFemale = 100 * (femaleCount / (maleCount + femaleCount));
+            Console.WriteLine("Males: " + maleCount + " Females: " + femaleCount);
+            Console.WriteLine("Males Percentage: " + percentageMale + " Females Percentage: " + percentageFemale);
+        }
+    }
+}
+    //class Program
+    //{
+            
+
+    //    static void Main(string[] args)
+    //    {
+
+    //        List<Program> students = new List<Program>()
+    //       {
+    //           new Program { studentID=1, studentName="S1", gender=Gender.Female, Standard=11},
+    //             new Program { studentID=2, studentName="S1", gender=Gender.Female, Standard=11},
+    //               new Program { studentID=3, studentName="S1", gender=Gender.Female, Standard=11},
+    //                 new Program { studentID=4, studentName="S1", gender=Gender.Female, Standard=11}
+
+    //    };
+    //        Dictionary<Gender, double> percentages = new Dictionary<Gender, double>();
+    //        double countmale = 0.0, countfemale = 0.0;
+    //        double permale = 0.0, perfemale = 0.0;
+
+    //        foreach (Student s in students)
+    //        {
+    //            if (s.gender == Gender.Male)
+    //                countmale++;
+    //            else
+    //                countfemale++;
+    //        }
+    //        permale = countmale / students.Count * 100;
+    //        perfemale = countfemale / students.Count * 100;
+    //        percentages.Add(Gender.Male, permale);
+    //        percentages.Add(Gender.Female, perfemale);
+
+    //        foreach (KeyValuePair<Gender, double> kv in percentages)
+    //        {
+    //            Console.WriteLine("Gender - {0} Percentage -{1}", kv.Key, kv.Value);
+    //        }
+    //        Console.ReadLine();
+    //    }
+    //    }
+    //}
+
+　
