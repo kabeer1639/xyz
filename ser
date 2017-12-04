@@ -1,1 +1,62 @@
-serializable by binaryusing System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Threading.Tasks;using System.IO;using System.Runtime.Serialization.Formatters.Binary;namespace SerializationBinary{    [Serializable]    public class Employee    {        #region Property        public int EMPID { get; set; }        public string NAME { get; set; }        public int AGE { get; set; }        #endregion    }    class Program    {        static void Main(string[] args)        {            Employee emplist = new Employee();            List<Employee> empList = new List<Employee>();            //empList.Add(emplist);            emplist = new Employee();            Console.WriteLine("Employee Id : ");            emplist.EMPID = Convert.ToInt32(Console.ReadLine());            Console.WriteLine("Employee Name : ");            emplist.NAME = Console.ReadLine();            Console.WriteLine("Employee Age : ");            emplist.AGE = Convert.ToInt32(Console.ReadLine());            empList.Add(emplist);            SerializeData(empList);            DeserializeData();            Console.ReadKey();        }        private static void SerializeData(List<Employee> emplist)        {            FileStream fileStream = new FileStream("d:\\ser.dat", FileMode.Create);            BinaryFormatter binaryFormatter = new BinaryFormatter();            binaryFormatter.Serialize(fileStream, emplist);            fileStream.Flush();            fileStream.Close();            fileStream.Dispose();            //throw new NotImplementedException();        }        private static void DeserializeData()        {            FileStream fileStream = new FileStream("d:\\ser.dat", FileMode.Open);            BinaryFormatter binaryFormatter = new BinaryFormatter();            List<Employee> emplist1 = (List<Employee>)binaryFormatter.Deserialize(fileStream);            foreach (Employee emp in emplist1)            {                Console.WriteLine("Employee Id : {0}", emp.EMPID);                Console.WriteLine("Employee Name : {0}", emp.NAME);                Console.WriteLine("Employee Age : {0}", emp.AGE);            }        }    }}
+serializable by binaryusing System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+namespace SerializationBinary
+{ 
+[Serializable]   
+public class Employee   
+{  
+#region Property       
+public int EMPID { get; set; }    
+public string NAME { get; set; }    
+public int AGE { get; set; }       
+#endregion   
+}  
+
+class Program   
+{       
+static void Main(string[] args) 
+{          
+Employee emplist = new Employee();  
+List<Employee> empList = new List<Employee>();  
+//empList.Add(emplist);         
+emplist = new Employee();          
+Console.WriteLine("Employee Id : ");    
+emplist.EMPID = Convert.ToInt32(Console.ReadLine());        
+Console.WriteLine("Employee Name : ");          
+emplist.NAME = Console.ReadLine();         
+Console.WriteLine("Employee Age : ");           
+emplist.AGE = Convert.ToInt32(Console.ReadLine());       
+empList.Add(emplist);          
+SerializeData(empList);        
+DeserializeData();          
+Console.ReadKey();       
+}      
+private static void SerializeData(List<Employee> emplist)       
+{          
+FileStream fileStream = new FileStream("d:\\ser.dat", FileMode.Create);    
+BinaryFormatter binaryFormatter = new BinaryFormatter();       
+binaryFormatter.Serialize(fileStream, emplist);        
+fileStream.Flush();      
+fileStream.Close();      
+fileStream.Dispose();    
+//throw new NotImplementedException();  
+}  
+private static void DeserializeData() 
+{         
+FileStream fileStream = new FileStream("d:\\ser.dat", FileMode.Open);      
+BinaryFormatter binaryFormatter = new BinaryFormatter();         
+List<Employee> emplist1 = (List<Employee>)binaryFormatter.Deserialize(fileStream);   
+foreach (Employee emp in emplist1)          
+{              
+Console.WriteLine("Employee Id : {0}", emp.EMPID);     
+Console.WriteLine("Employee Name : {0}", emp.NAME);       
+Console.WriteLine("Employee Age : {0}", emp.AGE);         
+}
+}
+}
+}
