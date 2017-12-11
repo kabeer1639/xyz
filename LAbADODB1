@@ -1,0 +1,38 @@
+use LabAssg;
+create table employee
+( empno int primary key,
+empname varchar(50) not null,
+empsal numeric(10,2) check(empsal >= 25000) ,
+emptype varchar(1) check(emptype in('C','P'))
+)
+
+go
+create proc GetEmployeeById
+(
+@eno int
+)
+as
+select * from employee where empno = @eno
+go
+
+create proc InsertEmployee
+@empname varchar(50),
+@empsal numeric (10,2),
+@emptype varchar(1)
+AS
+BEGIN
+	DECLARE @empid INT;
+	SET @empid=0;
+	Insert into employee values(@empid, @empname, @empsal, @emptype);
+	
+	END;
+
+	
+	
+	go
+	create procedure addemp @empname varchar,@sal numeric(10,2),@emptype varchar(1),@nextid int out as
+	begin
+	--declare @id int;
+	select TOP(1) @nextid=empno+1 from employee order by empno desc;
+	insert into employee values(@nextid,@empname,@sal,@emptype)
+	end
