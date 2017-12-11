@@ -1,0 +1,96 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace DataAppDec17
+{
+    class Program
+    {
+        static SqlConnection con = null;
+        static SqlCommand com = null;
+        static SqlDataReader reader = null;
+        static void Main(string[] args)
+        {
+
+            using (con = (new SqlConnection(@"Data Source =BLRWFD20626\SQLEXPRESS; Initial Catalog = northwind; Integrated Security = True")))
+            {
+                try
+                {
+                    con.Open();
+                    Console.WriteLine("Connected Successfully...");
+                    //reader = com.ExecuteReader();
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                com = new SqlCommand();
+                com.Connection = con;
+                //com.CommandText = "Select EmployeeID,FirstName from Employees ";
+                com.CommandType = CommandType.Text;
+                com.CommandText = "Select employeeid,firstname from employees;" +
+                                "Select categoryid,categoryname from categories;";
+                reader = com.ExecuteReader();
+                //try
+                //{
+                //    int empCount = (int)com.ExecuteScalar();
+                //    Console.WriteLine("Employees count - {0}",empCount);
+                //}
+                try
+                {
+                    Console.WriteLine("Records available -" + reader.HasRows);
+                    while (reader.HasRows)
+                    {
+
+                        int rowcount = 0;
+                        Console.WriteLine("=========================================================");
+                        while (reader.Read())
+                        {
+                            if (rowcount++ == 0)
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Result set records has {0} fields.", reader.FieldCount);
+
+                                var datatype1 = reader[0].GetType();
+                                Console.Write(datatype1);
+                                Console.Write("\t");
+                                var datatype2 = reader[1].GetType();
+                                Console.Write(datatype2);
+                                Console.WriteLine();
+                                // Get string representation of Type of the column
+                                Console.Write(reader.GetDataTypeName(0));
+                                Console.Write("\t\t");
+                                Console.WriteLine(reader.GetDataTypeName(1));
+
+                                //Console.Write(reader.GetOrdinal("employeeid") + "\t\t");
+                                //Console.Write(reader.GetOrdinal("firstname"));
+                                Console.WriteLine("\n\n\tData\n");
+                                Console.WriteLine("{0}\t{1}", reader.GetName(0), reader.GetName(1));
+                                Console.Write("{0}\t{1}", "-".PadRight(reader.GetName(0).Length, '-'), "-".PadRight(reader.GetName(1).Length, '-'));
+                                Console.WriteLine();
+                            }
+                            for (int count = 0; count < reader.FieldCount; count++)
+                            {
+                                Console.Write("{0}\t\t", reader[count]);
+                            }
+                            Console.WriteLine();
+
+                        }
+                        reader.NextResult();
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                Console.WriteLine(con.State);
+            }
+
+            Console.WriteLine(con.State);
+            Console.ReadLine();
+        }
+    }
+}
