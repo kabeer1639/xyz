@@ -1,3 +1,23 @@
-CREATE PROCEDURE [dbo].[uspAddGuest]   ( @ipv_iGuestID int, @ipv_vcGuestName varchar(25), @ipv_vcGuestContactNumber varchar(15) ) AS insert into tblGuest(GuestID,GuestName,GuestContactNumber) Values(@ipv_iGuestID,@ipv_vcGuestName,@ipv_vcGuestContactNumber) RETURN
---------------------------------CREATE PROCEDURE [dbo].[uspDeleteGuest]   ( @ipv_iGuestID int  ) AS Delete from tblGuest where GuestID = @ipv_iGuestID; RETURN
----------------------------------------CREATE PROCEDURE [dbo].[uspGetAllGuests]  /* ( @parameter1 int = 5, @parameter2 datatype OUTPUT ) */AS select GuestID,GuestName,GuestContactNumber from tblGuest; RETURN---------------------------------------------------CREATE PROCEDURE [dbo].[uspSearchGuest]   ( @ipv_iGuestID int  ) AS  select GuestID,GuestName,GuestContactNumber from tblGuest where GuestID = @ipv_iGuestID; RETURN------------------------------------------------------CREATE PROCEDURE [dbo].[uspUpdateGuest]  ( @ipv_iGuestID int, @ipv_vcGuestName varchar(25), @ipv_vcGuestContactNumber varchar(15) )AS update tblGuest set GuestName = @ipv_vcGuestName,GuestContactNumber = @ipv_vcGuestContactNumber where GuestID = @ipv_iGuestID; RETURN----------------------------------------------------------
+CREATE PROCEDURE [dbo].[uspAddGuest]   ( @ipv_iGuestID int, @ipv_vcGuestName varchar(25), @ipv_vcGuestContactNumber varchar(15) )
+AS insert into tblGuest(GuestID,GuestName,GuestContactNumber) Values(@ipv_iGuestID,@ipv_vcGuestName,@ipv_vcGuestContactNumber) 
+RETURN
+--------------------------------
+CREATE PROCEDURE [dbo].[uspDeleteGuest]   
+( @ipv_iGuestID int  ) AS Delete from tblGuest where GuestID = @ipv_iGuestID;
+RETURN
+---------------------------------------
+CREATE PROCEDURE [dbo].[uspGetAllGuests] 
+/* ( @parameter1 int = 5, @parameter2 datatype OUTPUT ) 
+*/AS select GuestID,GuestName,GuestContactNumber from tblGuest;
+RETURN
+---------------------------------------------------
+CREATE PROCEDURE [dbo].[uspSearchGuest]  
+( @ipv_iGuestID int  )
+AS  select GuestID,GuestName,GuestContactNumber from tblGuest where GuestID = @ipv_iGuestID; 
+RETURN
+------------------------------------------------------
+CREATE PROCEDURE [dbo].[uspUpdateGuest] 
+( @ipv_iGuestID int, @ipv_vcGuestName varchar(25), @ipv_vcGuestContactNumber varchar(15) )
+AS update tblGuest set GuestName = @ipv_vcGuestName,GuestContactNumber = @ipv_vcGuestContactNumber 
+where GuestID = @ipv_iGuestID;
+RETURN----------------------------------------------------------
