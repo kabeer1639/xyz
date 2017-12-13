@@ -1,1 +1,94 @@
-using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Threading.Tasks;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using IGATEPATNI.GuestPhoneBook.BL;using IGATEPATNI.GuestPhoneBook.Entities;using IGATEPATNI.GuestPhoneBook.Exceptions;namespace IGATEPATNI.GuestPhoneBookWPFPL{    /// <summary>    /// Interaction logic for MainWindow.xaml    /// </summary>    public partial class MainWindow : Window    {        public MainWindow()        {            InitializeComponent();        }        private void btnfind_Click(object sender, RoutedEventArgs e)        {            try            {                int searchGuestID= Convert.ToInt32(txtguestid.Text);                                              Guest searchGuest = GuestBL.SearchGuestBL(searchGuestID);                if (searchGuest != null)                {                    txtguestname.Text = searchGuest.GuestName;                    txtguestphonenumber.Text = searchGuest.GuestContactNumber;                }                else                {                    label.Content="No Guest Details Available";                }            }            catch (GuestPhoneBookException ex)            {                Console.WriteLine(ex.Message);            }        }        private void btnupdate_Click(object sender, RoutedEventArgs e)        {            int guestID = Convert.ToInt32(txtguestid.Text);            string name = txtguestname.Text;            string phoneNumber = txtguestphonenumber.Text;            Guest guest = new Guest();            guest.GuestID = guestID;            guest.GuestName = name;            guest.GuestContactNumber = phoneNumber;            GuestBL.UpdateGuestBL(guest);        }        private void btndelete_Click(object sender, RoutedEventArgs e)        {            int guestID = Convert.ToInt32(txtguestid.Text);            GuestBL.DeleteGuestBL(guestID);        }        private void btnaddnewguest_Click(object sender, RoutedEventArgs e)        {            try            {                int guestID = Convert.ToInt32(txtguestid.Text);                string name = txtguestname.Text;                string phoneNumber = txtguestphonenumber.Text;                Guest guest = new Guest();                guest.GuestID = guestID;                guest.GuestName = name;                guest.GuestContactNumber = phoneNumber;                GuestBL.AddGuestBL(guest);            }            catch(Exception ex)            {                MessageBox.Show(ex.Message);            }        }        private void btngetallguest_Click(object sender, RoutedEventArgs e)        {            List<Guest> guestlist = GuestBL.GetAllGuestsBL();            dataGrid.ItemsSource = guestlist;        }        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)        {            Guest guest = (Guest)dataGrid.CurrentCell.Item;            txtguestid.Text = guest.GuestID.ToString();            txtguestname.Text = guest.GuestName.ToString();            txtguestphonenumber.Text = guest.GuestContactNumber.ToString();        }    }}
+using System;
+using System.Collections.Generic;
+using System.Linq;using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using IGATEPATNI.GuestPhoneBook.BL;
+using IGATEPATNI.GuestPhoneBook.Entities;
+using IGATEPATNI.GuestPhoneBook.Exceptions;
+namespace IGATEPATNI.GuestPhoneBookWPFPL
+{    /// <summary>    /// Interaction logic for MainWindow.xaml    ///
+</summary> 
+public partial class MainWindow : Window   
+{       
+public MainWindow()  
+{            
+InitializeComponent();  
+}   
+private void btnfind_Click(object sender, RoutedEventArgs e) 
+{        
+try      
+{          
+int searchGuestID= Convert.ToInt32(txtguestid.Text);       
+Guest searchGuest = GuestBL.SearchGuestBL(searchGuestID);        
+if (searchGuest != null)           
+{                   
+txtguestname.Text = searchGuest.GuestName;      
+txtguestphonenumber.Text = searchGuest.GuestContactNumber;        
+}     
+else       
+{              
+label.Content="No Guest Details Available";  
+}         
+}           
+catch (GuestPhoneBookException ex)       
+{             
+Console.WriteLine(ex.Message);       
+}   
+}     
+private void btnupdate_Click(object sender, RoutedEventArgs e)  
+{      
+int guestID = Convert.ToInt32(txtguestid.Text);   
+string name = txtguestname.Text;         
+string phoneNumber = txtguestphonenumber.Text;     
+Guest guest = new Guest();         
+guest.GuestID = guestID;       
+guest.GuestName = name;        
+guest.GuestContactNumber = phoneNumber;  
+GuestBL.UpdateGuestBL(guest);     
+}      
+private void btndelete_Click(object sender, RoutedEventArgs e)    
+{      
+int guestID = Convert.ToInt32(txtguestid.Text);       
+GuestBL.DeleteGuestBL(guestID);     
+}    
+private void btnaddnewguest_Click(object sender, RoutedEventArgs e)     
+{        
+try     
+{         
+int guestID = Convert.ToInt32(txtguestid.Text);   
+string name = txtguestname.Text;          
+string phoneNumber = txtguestphonenumber.Text;     
+Guest guest = new Guest();         
+guest.GuestID = guestID;           
+guest.GuestName = name;           
+guest.GuestContactNumber = phoneNumber;   
+GuestBL.AddGuestBL(guest);        
+}         
+catch(Exception ex)     
+{             
+MessageBox.Show(ex.Message);   
+}       
+}       
+private void btngetallguest_Click(object sender, RoutedEventArgs e)
+{       
+List<Guest> guestlist = GuestBL.GetAllGuestsBL();   
+dataGrid.ItemsSource = guestlist;      
+}    
+private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) 
+{     
+Guest guest = (Guest)dataGrid.CurrentCell.Item;      
+txtguestid.Text = guest.GuestID.ToString();      
+txtguestname.Text = guest.GuestName.ToString();  
+txtguestphonenumber.Text = guest.GuestContactNumber.ToString();  
+}
+}
+}
